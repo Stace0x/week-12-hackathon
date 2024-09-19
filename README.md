@@ -12,6 +12,11 @@
 - tracks the progress over week 
 
 
+# store live the inputted data and present it
 
+- 
+
+
+# stretch goal - implement data base tracking of the data
 
 

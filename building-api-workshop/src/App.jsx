@@ -6,7 +6,7 @@ import "./App.css";
 function App() {
   const [habit, setHabit] = useState({waterHabit:false, steps:0, activity:0});
   // const [data, setData] = useState(false);
-
+  const [trackedData, setTrackedData] = useState([]);
 
   const onChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -18,9 +18,8 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(habit);
     setHabit({waterHabit:false, steps:0, activity:0});
-    console.log(habit);
+  
   }
 
   return (
@@ -43,7 +42,8 @@ function App() {
             </li>
             <li>
               <label>how many steps have you taken?</label>
-              <input type="number" name="steps" value={habit.steps} onChange={onChange}></input>
+              <input type="number" name="steps" value={habit.steps} onChange={onChange}></input> 
+              {/* now render this data back onto the page */}
             </li>
             <li>
               <label>how long have you been active today?</label>
