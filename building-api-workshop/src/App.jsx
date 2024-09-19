@@ -4,16 +4,24 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 
 function App() {
-  const [input, seInput] = useState(false);
+  const [habit, setHabit] = useState({waterHabit:false, steps:0, activity:0});
+  // const [data, setData] = useState(false);
 
 
-  const onChange {(e) => {
-    setInput(e.target.input);
-  }}
+  const onChange = (e) => {
+    const { name, value, type, checked } = e.target;
 
+    setHabit((prevHabit) => ({ ...prevHabit, [name]: type === "checkbox" ? checked : value}))
 
+    
+  }
 
-
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(habit);
+    setHabit({waterHabit:false, steps:0, activity:0});
+    console.log(habit);
+  }
 
   return (
     <>
@@ -27,19 +35,19 @@ function App() {
       </div>
       <h1>My Habit Tracker</h1>
       <section>
-        <form onSubmit={}>
+        <form onSubmit={handleSubmit}>
           <ol>
             <li>
               <label>have to drunk water today?</label>
-              <input type="checkbox"></input>
+              <input type="checkbox" name="waterHabit" checked={habit.waterHabit} onChange={onChange}></input>
             </li>
             <li>
               <label>how many steps have you taken?</label>
-              <input type="number"></input>
+              <input type="number" name="steps" value={habit.steps} onChange={onChange}></input>
             </li>
             <li>
               <label>how long have you been active today?</label>
-              <input type="number"></input>
+              <input type="number" name="activity" value={habit.activity} onChange={onChange}></input>
             </li>
           </ol>
 
