@@ -18,8 +18,9 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setTrackedData((allHabits) => [...prevHabits, habit]);
+
     setHabit({waterHabit:false, steps:0, activity:0});
-  
   }
 
   return (
