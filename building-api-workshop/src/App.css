@@ -6,7 +6,7 @@
 }
 
 .logo {
-  height: 6em;
+  height: 3em;
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
@@ -39,4 +39,67 @@
 
 .read-the-docs {
   color: #888;
+}
+
+form {
+  margin: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f4f4f4;
+}
+
+form div {
+  margin-bottom: 15px;
+}
+
+form label {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+ol {
+  list-style-type: none; 
+  padding: 0; 
+}  
+
+li {
+  display: flex; 
+  align-items: center; 
+  margin-bottom: 15px; 
+}
+
+.lable-text {
+  flex: 1; 
+  margin-right: 10px; 
+}
+
+input[type="checkbox"] {
+  margin-left: 10px; 
+}
+
+input[type="number"] {
+  width: 60px; 
+  padding: 5px; 
+}
+
+button {
+  padding: 10px 15px;
+  background-color: #20c531;
+  color: rgb(103, 100, 100);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.habit-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  background-color: #898585;
+}
+
+.habit-card h3 {
+  margin-bottom: 10px;
+  font-size: 1.2em;
 }
