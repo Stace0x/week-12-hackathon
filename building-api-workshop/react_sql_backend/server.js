@@ -1,51 +1,48 @@
 const express = require('express');
-const pg = require('postgres');
+const { Pool } = require('pg');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+require('dotenv').config();
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// Create connection to SQL Database
-const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root', // Your MySQL username
-  password: 'password', // Your MySQL password
-  database: 'mydatabase', // Database name
-});
-
-// Connect to database
-db.connect(err => {
-  if (err) {
-    console.error('Database connection failed: ' + err.stack);
-    return;
+// Create a new PostgreSQL client pool
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
   }
-  console.log('Connected to MySQL database');
 });
 
-// Define a simple GET route
-app.get('/api/data', (req, res) => {
-  db.query('SELECT * FROM mytable', (err, results) => {
-    if (err) {
-      return res.status(500).send(err);
-    }
-    res.json(results);
-  });
+// Route to fetch all data from the PostgreSQL table
+app.get('/api/data', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM mytable');
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
 });
 
-// Define a POST route for adding data
-app.post('/api/data', (req, res) => {
+// Route to insert new data into the PostgreSQL table
+app.post('/api/data', async (req, res) => {
   const { name, value } = req.body;
-  db.query('INSERT INTO mytable (name, value) VALUES (?, ?)', [name, value], (err, results) => {
-    if (err) {
-      return res.status(500).send(err);
-    }
-    res.json({ message: 'Data added successfully!' });
-  });
+  try {
+    const result = await pool.query(
+      'INSERT INTO mytable (name, value) VALUES ($1, $2) RETURNING *',
+      [name, value]
+    );
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
 });
 
-// Start the server
+// Start the server on port 5000
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
