@@ -4,24 +4,29 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 
 function App() {
-  const [habit, setHabit] = useState({waterHabit:false, steps:0, activity:0});
+  const [habit, setHabit] = useState({
+    waterHabit: false,
+    steps: 0,
+    activity: 0,
+  });
   // const [data, setData] = useState(false);
   const [trackedData, setTrackedData] = useState([]);
 
   const onChange = (e) => {
     const { name, value, type, checked } = e.target;
 
-    setHabit((prevHabit) => ({ ...prevHabit, [name]: type === "checkbox" ? checked : value}))
-
-    
-  }
+    setHabit((prevHabit) => ({
+      ...prevHabit,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setTrackedData((allHabits) => [...prevHabits, habit]);
+    setTrackedData((prevHabits) => [...prevHabits, habit]);
 
-    setHabit({waterHabit:false, steps:0, activity:0});
-  }
+    setHabit({ waterHabit: false, steps: 0, activity: 0 });
+  };
 
   return (
     <>
@@ -39,16 +44,31 @@ function App() {
           <ol>
             <li>
               <label>have to drunk water today?</label>
-              <input type="checkbox" name="waterHabit" checked={habit.waterHabit} onChange={onChange}></input>
+              <input
+                type="checkbox"
+                name="waterHabit"
+                checked={habit.waterHabit}
+                onChange={onChange}
+              ></input>
             </li>
             <li>
               <label>how many steps have you taken?</label>
-              <input type="number" name="steps" value={habit.steps} onChange={onChange}></input> 
+              <input
+                type="number"
+                name="steps"
+                value={habit.steps}
+                onChange={onChange}
+              ></input>
               {/* now render this data back onto the page */}
             </li>
             <li>
               <label>how long have you been active today?</label>
-              <input type="number" name="activity" value={habit.activity} onChange={onChange}></input>
+              <input
+                type="number"
+                name="activity"
+                value={habit.activity}
+                onChange={onChange}
+              ></input>
             </li>
           </ol>
 
@@ -57,11 +77,20 @@ function App() {
           </div>
         </form>
       </section>
-      {trackedData === 0 ? 
-      <p>no Logged activities</p> :
-      }
       <section>
-        <h2>log activities</h2>
+        <h2>Logged Activities</h2>
+        {trackedData.length === 0 ? (
+          <p>No habits have been logged yet.</p>
+        ) : (
+          trackedData.map((log, index) => (
+            <div key={index}>
+              <h3>Habit {index + 1}</h3>
+              <p>Drank Water: {log.waterHabit ? "Yes" : "No"}</p>
+              <p>Steps Taken: {log.steps}</p>
+              <p>Minutes of Activity: {log.activity}</p>
+            </div>
+          ))
+        )}
       </section>
     </>
   );
