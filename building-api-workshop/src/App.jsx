@@ -57,6 +57,12 @@ function App() {
           </div>
         </form>
       </section>
+      {trackedData === 0 ? 
+      <p>no Logged activities</p> :
+      }
+      <section>
+        <h2>log activities</h2>
+      </section>
     </>
   );
 }
