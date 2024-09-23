@@ -31,7 +31,7 @@ function App() {
   return (
     <>
       <h1>My Habit Tracker</h1>
-      <section >
+      <section>
         <form onSubmit={handleSubmit}>
           <ol>
             <li>
@@ -44,7 +44,9 @@ function App() {
               ></input>
             </li>
             <li>
-              <label className="lable-text">how many steps have you taken?</label>
+              <label className="lable-text">
+                how many steps have you taken?
+              </label>
               <input
                 type="number"
                 name="steps"
@@ -54,7 +56,9 @@ function App() {
               {/* now render this data back onto the page */}
             </li>
             <li>
-              <label className="lable-text">how long have you been active today?</label>
+              <label className="lable-text">
+                how long have you been active today?
+              </label>
               <input
                 type="number"
                 name="activity"
@@ -72,27 +76,29 @@ function App() {
 
       <section className="card-container">
         <h2>Logged Activities</h2>
-        {trackedData.length === 0 ? (
-          <p>No habits have been logged yet.</p>
-        ) : (
-          trackedData.map((log, index) => (
-            <div key={index} className="habit-card">
-              <h3>Habit {index + 1 }</h3>
-              <p>Drank Water: {log.waterHabit ? "Yes" : "No"}</p>
-              <p>Steps Taken: {log.steps}</p>
-              <p>Minutes of Activity: {log.activity}</p>
-            </div>
-          ))
-        )}
+        <section className="cards">
+          {trackedData.length === 0 ? (
+            <p>No habits have been logged yet.</p>
+          ) : (
+            trackedData.map((log, index) => (
+              <div key={index} className="habit-card">
+                <h3>Habit {index + 1}</h3>
+                <p>Drank Water: {log.waterHabit ? "Yes" : "No"}</p>
+                <p>Steps Taken: {log.steps}</p>
+                <p>Minutes of Activity: {log.activity}</p>
+              </div>
+            ))
+          )}
+        </section>
+        <div>
+          <a href="https://vitejs.dev" target="_blank">
+            <img src={viteLogo} className="logo" alt="Vite logo" />
+          </a>
+          <a href="https://react.dev" target="_blank">
+            <img src={reactLogo} className="logo react" alt="React logo" />
+          </a>
+        </div>
       </section>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
     </>
   );
 }
